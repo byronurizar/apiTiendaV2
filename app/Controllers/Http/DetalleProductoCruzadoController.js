@@ -41,6 +41,13 @@ class DetalleProductoCruzadoController {
             const subconsulta = 'select id from producto_cruzados where idProducto=' + id;
             data = await Database
                 .raw('select a.id as idProducto,a.nombre as Producto,a.descripcion as desc,a.descripcionCorta as descCorta,a.codigo as sku,a.precio,proveedors.id as idProveedor,cat_categorias.id as idCategoria,cat_categorias.descripcion as Categoria from detalle_producto_cruzados detalle inner join productos a on detalle.idProducto=a.id inner join proveedors on a.idProveedor=proveedors.id inner join cat_categorias on a.idCategoria=cat_categorias.id where detalle.idProductoCruzado in(' + subconsulta + ') and a.idEstado=1 and detalle.idEstado=1 and proveedors.idEstado=1 and cat_categorias.idEstado=1');
+
+            if (data.length > 0) {
+                data = data[0];
+            } else {
+                data = null;
+            }
+
         } catch (err) {
             codigoHttp = 500;
             codigo = -1;
@@ -75,7 +82,14 @@ class DetalleProductoCruzadoController {
                 where detalle_producto_cruzados.idEstado=1 and detalle_producto_cruzados.idProductoCruzado in(
                 select id from producto_cruzados where idProducto=${idProducto}
                 )`);
-                
+
+            if (data.length > 0) {
+                data = data[0];
+            } else {
+                data = null;
+            }
+
+
         } catch (err) {
             codigoHttp = 500;
             codigo = -1;

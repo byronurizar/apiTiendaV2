@@ -14,7 +14,7 @@ class CategoriaController {
             //data = await Categoria.all();
             data = await Database
                 .table('vistaCategorias')
-                //await Database.close();
+            //await Database.close();
         } catch (err) {
             codigoHttp = 500;
             codigo = -1;
@@ -31,7 +31,7 @@ class CategoriaController {
         });
     }
 
-    async listarPorProveedor({ auth,params, response }) {
+    async listarPorProveedor({ auth, params, response }) {
         let codigoHttp = 200;
         let codigo = 0;
         let error = '';
@@ -40,14 +40,27 @@ class CategoriaController {
 
         const usuario = await auth.getUser();
         try {
-             const { id } = params;
-             data = await Database
-             .raw(`select id as idCategoria,descripcion as categoria from cat_categorias
+            const { id } = params;
+            data = await Database
+                .raw(`select id as idCategoria,descripcion as categoria from cat_categorias
              where id in(
              select idCategoria from productos where idCatalogo in(
              select id from catalogos where idProveedor=${id}
              )
              )`)
+            if (data.length > 0) {
+                data = data[0];
+            } else {
+                data = null;
+            }
+            // // data=Buffer.from(JSON.stringify(data)).toString('base64')
+            // var obj={
+            //     codigo,
+            //     error,
+            //     respuesta,
+            //     data
+            // }
+            // obj=Buffer.from(JSON.stringify(obj)).toString('base64')
         } catch (err) {
             codigoHttp = 500;
             codigo = -1;

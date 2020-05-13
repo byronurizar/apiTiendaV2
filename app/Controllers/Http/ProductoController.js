@@ -84,6 +84,13 @@ class ProductoController {
             select id from producto_cruzados where idProducto=${idProducto}
             )
             )`)
+
+            if (data.length > 0) {
+                data = data[0];
+            } else {
+                data = null;
+            }
+            
             // .select('productos.id','productos.nombre','productos.codigo','productos.precio','productos.oferta')
             // .from('productos')
             // .innerJoin('catalogos','productos.idCatalogo','catalogos.id')

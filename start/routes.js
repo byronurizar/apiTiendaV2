@@ -198,6 +198,8 @@ Route.group(() => {
   Route.post('pedido/registro', 'PedidoController.registrar');
   Route.patch('pedido/actualizar/:id', 'PedidoController.actualizar');
   Route.get('pedido/listar', 'PedidoController.listar');
+  Route.get('pedido/infopedido/:id', 'PedidoController.listarInfoDetallePedido');
+  
 
   //Detalle Pedido
   Route.post('pedido/detalle/registro', 'DetallePedidoController.registrar');
@@ -207,6 +209,7 @@ Route.group(() => {
 
   //Recibe pedido
   Route.post('pedido/recibe/registro', 'InfoRecibePedidoController.registrar');
+  Route.get('pedido/detalle/:id', 'InfoRecibePedidoController.detallepedido');
 
   //Configuracion
   Route.get('confi/vistas', 'CrearVistaController.crearVistas');

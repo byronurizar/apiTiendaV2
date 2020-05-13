@@ -18,6 +18,13 @@ class ProductoCruzadoController {
                     select id from producto_cruzados where idProducto=${idProducto}
                     )
             )`);
+
+            if (data.length > 0) {
+                data = data[0];
+            } else {
+                data = null;
+            }
+            
         } catch (err) {
             codigoHttp = 500;
             codigo = -1;

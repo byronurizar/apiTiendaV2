@@ -166,7 +166,30 @@ class CrearVistaController {
             SELECT id,idProducto,concat('http://127.0.0.1:3333/',pathImagen) AS pathImagen,codigoImagen,esImagenPrincipal,idEstado,user_id,created_at,updated_at FROM imagen_productos
             WHERE idEstado=1`);
 
-            
+            data=await Database
+            .raw(`CREATE OR replace VIEW vistaInfoPedido
+            as
+            SELECT a.id,a.created_at AS Fecha,CONCAT(b.nombres,' ',b.apellidos) AS Nombre,b.telefonos,b.direccion,b.puntoReferencia,c.descripcion AS TipoPago,d.descripcion AS Estado FROM pedidos a
+            INNER JOIN info_recibe_pedidos b
+            ON a.id=b.idPedido
+            INNER JOIN cat_tipo_pagos c
+            ON a.idTipoPago=c.id
+            INNER JOIN cat_estado_pedidos d
+            ON a.idEstadoPedido=d.id`);
+
+            data=await Database
+            .raw(`CREATE OR replace VIEW vistaDetallePedido
+            as
+            SELECT  a.idPedido AS id,b.id AS IdProducto,b.nombre AS Producto,b.codigo,a.cantidad,(a.precio-a.descuento) AS Precio,
+            case when(c.descripcion IS NULL) then 'N/A' ELSE c.descripcion END AS Talla,
+            case when(d.descripcion IS NULL) then 'N/A' ELSE d.descripcion END AS Color 
+            FROM detalle_pedidos a
+            INNER JOIN productos b
+            ON a.idProducto=b.id
+            left JOIN talla_productos c
+            ON a.idTalla=c.id
+            LEFT JOIN cat_colores d
+            ON a.idTalla=d.id`);
 
             Database.close();
         } catch (err) {
