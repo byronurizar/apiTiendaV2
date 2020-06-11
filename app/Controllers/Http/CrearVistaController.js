@@ -155,7 +155,7 @@ class CrearVistaController {
             data=await Database
             .raw(`CREATE OR REPLACE VIEW vistaComercioProductos
             AS
-            select a.id,a.nombre,a.descripcion,a.descripcionCorta,a.precio,a.oferta,Concat('http://127.0.0.1:3333/',b.pathImagen,b.codigoImagen) as pathImagen,b.esImagenPrincipal,a.idCatalogo  from productos a
+            select a.id,a.nombre,a.descripcion,a.descripcionCorta,a.precio,a.oferta,Concat(b.pathImagen,b.codigoImagen) as pathImagen,b.esImagenPrincipal,a.idCatalogo  from productos a
             inner join imagen_productos b
             on a.id=b.idProducto
             where a.idEstado=1 and b.idEstado=1 and b.esImagenPrincipal=1`);
