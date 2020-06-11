@@ -38,6 +38,7 @@ class ProductoController {
         const { id } = params;
         try {
             // data = await Producto.query().where('id', '=', id).fetch();
+            
             data =await Database
             .select('vistaComercioProductos.id','vistaComercioProductos.nombre','vistaComercioProductos.descripcion','vistaComercioProductos.descripcionCorta','vistaComercioProductos.pathImagen','vistaComercioProductos.esImagenPrincipal',
             'vistaComercioProductos.precio','vistaComercioProductos.oferta','proveedors.nombre as proveedor',
