@@ -39,13 +39,13 @@ class ProductoController {
         try {
             // data = await Producto.query().where('id', '=', id).fetch();
             data =await Database
-            .select('vistacomercioproductos.id','vistacomercioproductos.nombre','vistacomercioproductos.descripcion','vistacomercioproductos.descripcionCorta','vistacomercioproductos.pathImagen','vistacomercioproductos.esImagenPrincipal',
-            'vistacomercioproductos.precio','vistacomercioproductos.oferta','proveedors.nombre as proveedor',
+            .select('vistaComercioProductos.id','vistaComercioProductos.nombre','vistaComercioProductos.descripcion','vistaComercioProductos.descripcionCorta','vistaComercioProductos.pathImagen','vistaComercioProductos.esImagenPrincipal',
+            'vistaComercioProductos.precio','vistaComercioProductos.oferta','proveedors.nombre as proveedor',
             'catalogos.descripcion as catalogo')
-            .from('vistacomercioproductos')
-            .innerJoin('catalogos','vistacomercioproductos.idCatalogo','catalogos.id')
+            .from('vistaComercioProductos')
+            .innerJoin('catalogos','vistaComercioProductos.idCatalogo','catalogos.id')
             .innerJoin('proveedors','catalogos.idProveedor','proveedors.id')
-            .where('vistacomercioproductos.id',id)
+            .where('vistaComercioProductos.id',id)
         } catch (err) {
             codigoHttp = 500;
             codigo = -1;

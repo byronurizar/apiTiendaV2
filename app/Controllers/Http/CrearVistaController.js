@@ -163,7 +163,7 @@ class CrearVistaController {
             data=await Database
             .raw(`CREATE OR REPLACE VIEW vistaImagenesProducto
             AS
-            SELECT id,idProducto,concat('http://127.0.0.1:3333/',pathImagen) AS pathImagen,codigoImagen,esImagenPrincipal,idEstado,user_id,created_at,updated_at FROM imagen_productos
+            SELECT id,idProducto,concat(pathImagen) AS pathImagen,codigoImagen,esImagenPrincipal,idEstado,user_id,created_at,updated_at FROM imagen_productos
             WHERE idEstado=1`);
 
             data=await Database
