@@ -87,7 +87,6 @@ class ImagenProductoController {
 
             const anio = fechaActual.getFullYear();
             const pathImagen0 = `public/Imagenes/${anio}/Catalogo${idCatalogo}/Categoria${idCategoria}/`;
-            const pathImagen = `Imagenes/${anio}/Catalogo${idCatalogo}/Categoria${idCategoria}/`;
             const extension = '.jpg';
             const codigoImagen = `${idCatalogo}${idCategoria}${Date.now()}${extension}`;
 
@@ -150,8 +149,6 @@ class ImagenProductoController {
 
             const producto = await Database.select('*').from('productos').where({ id: idProducto });
             const { idCatalogo, idCategoria } = producto;
-            const idCatalogo = producto[0].idCatalogo;
-            const idCategoria = producto[0].idCategoria
             const fechaActual = new Date();
             const anio = fechaActual.getFullYear();
             const pathImagen = `Imagenes/${anio}/Catalogo${idCatalogo}/Categoria${idCategoria}/`;
