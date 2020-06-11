@@ -68,7 +68,7 @@ class CrearVistaController {
             data=await Database
             .raw(`CREATE OR REPLACE VIEW vistaTallas
             AS
-            SELECT a.id,a.descripcion,b.descripcion AS idEstado FROM talla_Productos a
+            SELECT a.id,a.descripcion,b.descripcion AS idEstado FROM talla_productos a
             INNER JOIN cat_estados b
             ON a.idEstado=b.id
             WHERE a.idEstado IN(1,2)
