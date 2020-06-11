@@ -87,7 +87,7 @@ class ImagenProductoController {
 
             const anio = fechaActual.getFullYear();
             const pathImagen0 = `public/Imagenes/${anio}/Catalogo${idCatalogo}/Categoria${idCategoria}/`;
-            const pathImagen = `public/Imagenes/${anio}/Catalogo${idCatalogo}/Categoria${idCategoria}/`;
+            const pathImagen = `Imagenes/${anio}/Catalogo${idCatalogo}/Categoria${idCategoria}/`;
             const extension = '.jpg';
             const codigoImagen = `${idCatalogo}${idCategoria}${Date.now()}${extension}`;
 
