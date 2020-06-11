@@ -86,7 +86,7 @@ class ImagenProductoController {
             const fechaActual = new Date();
 
             const anio = fechaActual.getFullYear();
-            const pathImagen0 = `public/Imagenes/${anio}/Catalogo${idCatalogo}/Categoria${idCategoria}/`;
+            const pathImagen = `public/Imagenes/${anio}/Catalogo${idCatalogo}/Categoria${idCategoria}/`;
             const extension = '.jpg';
             const codigoImagen = `${idCatalogo}${idCategoria}${Date.now()}${extension}`;
 
@@ -96,7 +96,7 @@ class ImagenProductoController {
                 extnames: ['png', 'jpg', 'jpeg']
             });
 
-            await BinarioImagen.move(`./${pathImagen0}`, {
+            await BinarioImagen.move(`./${pathImagen}`, {
                 name: codigoImagen,
                 overwrite: true
             });
@@ -111,7 +111,7 @@ class ImagenProductoController {
             } else {
                 imagenProducto.fill({
                     idProducto,
-                    pathImagen0,
+                    pathImagen,
                     codigoImagen,
                     esImagenPrincipal,
                     idEstado
