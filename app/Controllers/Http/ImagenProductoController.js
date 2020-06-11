@@ -111,7 +111,7 @@ class ImagenProductoController {
             } else {
                 imagenProducto.fill({
                     idProducto,
-                    pathImagen,
+                    pathImagen0,
                     codigoImagen,
                     esImagenPrincipal,
                     idEstado
