@@ -34,6 +34,8 @@ const Route = use('Route')
 
 Route.group(() => {
   //Usuarios
+  Route.post('usuario/registronuevo', 'UsuarioController.registro');
+
   Route.post('usuario/registro', 'UsuarioController.store');
   Route.post('usuario/login', 'UsuarioController.login');
   Route.post('usuario/registrarUsuario', 'UsuarioController.registrarUsuario');
