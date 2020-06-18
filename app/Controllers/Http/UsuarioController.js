@@ -124,11 +124,12 @@ class UsuarioController {
         let data = null;
         let dataSalida = {};
         let existeCorreo = false;
-
+        
+        let dataUsuario = {};
         try {
             let uidActual = "";
             const { email, password, name, proveedor, uid, urlfoto } = request.all();
-
+            
             const infoPersona = await Database
                 .table('users').where('username', email);
             Database.close();
@@ -143,6 +144,19 @@ class UsuarioController {
                     let token = await auth.attempt(email, uidActual);
                     dataSalida.token = token;
                     dataSalida.usuario = infoPersona[0];
+                    let correo = infoPersona[0].email;
+                    let nombre = infoPersona[0].name;
+                    let origen = infoPersona[0].proveedor;
+                    let pahtFoto = infoPersona[0].urlfoto;
+                    let codigoRol = infoPersona[0].idRol;
+                    dataUsuario = {
+                        correo,
+                        nombre,
+                        origen,
+                        pahtFoto,
+                        codigoRol
+                    }
+                    dataSalida.usuario = dataUsuario;
                 } else {
                     const usuarioGoogle = await User.create({
                         username: email,
@@ -158,7 +172,20 @@ class UsuarioController {
                         respuesta = "Usuario creado exitosamente";
                         let token = await auth.attempt(email, uid);
                         dataSalida.token = token;
-                        dataSalida.usuario = usuarioGoogle.$originalAttributes;
+
+                        let correo = usuarioGoogle.$originalAttributes.email;
+                        let nombre = usuarioGoogle.$originalAttributes.name;
+                        let origen = usuarioGoogle.$originalAttributes.proveedor;
+                        let pahtFoto = usuarioGoogle.$originalAttributes.urlfoto;
+                        let codigoRol = usuarioGoogle.$originalAttributes.idRol;
+                        dataUsuario = {
+                            correo,
+                            nombre,
+                            origen,
+                            pahtFoto,
+                            codigoRol
+                        }
+                        dataSalida.usuario = dataUsuario;
                     } else {
                         codigo = -1;
                         respuesta = 'Ocurrió un error al intentar crear el usuario';
@@ -181,7 +208,20 @@ class UsuarioController {
                         respuesta = "Usuario creado exitosamente";
                         let token = await auth.attempt(email, password);
                         dataSalida.token = token;
-                        dataSalida.usuario = usuario;
+
+                        let correo = usuario.email;
+                        let nombre = usuario.name;
+                        let origen = usuario.proveedor;
+                        let pahtFoto = usuario.urlfoto;
+                        let codigoRol = usuario.idRol;
+                        dataUsuario = {
+                            correo,
+                            nombre,
+                            origen,
+                            pahtFoto,
+                            codigoRol
+                        }
+                        dataSalida.usuario = dataUsuario;
                     } else {
                         codigo = -1;
                         respuesta = 'Ocurrió un error al intentar crear el usuario';
