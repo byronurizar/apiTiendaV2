@@ -216,6 +216,10 @@ Route.group(() => {
   //Configuracion
   Route.get('confi/vistas', 'CrearVistaController.crearVistas');
 
+  //Menu
+  Route.post('menu/registro', 'MenuController.registrar');
+  Route.get('menu/mimenu', 'MenuController.listar');
+
 }).prefix('apiStore/v1/');
 
 //Agregar que los productos estan amarrados a un catalogo y analizar lo de varios prdoductos en una imagen

@@ -1,0 +1,112 @@
+{
+    "listaMenu": [
+        {
+            "idpadre": "0",
+            "descripcion": "Mantenimientos",
+            "href": "",
+            "icono": "icon-desktop"
+        },
+        {
+            "idpadre": "1",
+            "descripcion": "Categorias",
+            "href": "/basic/gscategoria",
+            "icono": ""
+        },
+        {
+            "idpadre": "1",
+            "descripcion": "Estados",
+            "href": "/basic/gsestado",
+            "icono": ""
+        },
+        {
+            "idpadre": "1",
+            "descripcion": "Generos",
+            "href": "/basic/gsgeneros",
+            "icono": ""
+        },
+        {
+            "idpadre": "1",
+            "descripcion": "Departamentos",
+            "href": "/basic/gsdepartamentos",
+            "icono": ""
+        },
+        {
+            "idpadre": "1",
+            "descripcion": "Municipios",
+            "href": "/basic/gsmunicipios",
+            "icono": ""
+        },
+        {
+            "idpadre": "1",
+            "descripcion": "Perfiles",
+            "href": "/basic/gsroles",
+            "icono": ""
+        },
+        {
+            "idpadre": "1",
+            "descripcion": "Proveedores",
+            "href": "/basic/gsproveedor",
+            "icono": ""
+        },
+        {
+            "idpadre": "1",
+            "descripcion": "Telefono Proveedor",
+            "href": "/basic/gstelefonosproveedores",
+            "icono": ""
+        },
+        {
+            "idpadre": "1",
+            "descripcion": "Etiquetas",
+            "href": "/basic/gsetiquetas",
+            "icono": ""
+        },
+        {
+            "idpadre": "1",
+            "descripcion": "Tallas",
+            "href": "/basic/gstallas",
+            "icono": ""
+        },
+        {
+            "idpadre": "1",
+            "descripcion": "Colores",
+            "href": "/basic/gscolores",
+            "icono": ""
+        },
+        {
+            "idpadre": "1",
+            "descripcion": "Catalogos",
+            "href": "/basic/gscatalogos",
+            "icono": ""
+        },
+        {
+            "idpadre": "1",
+            "descripcion": "Estados Pedido",
+            "href": "/basic/gsestadopedido",
+            "icono": ""
+        },
+        {
+            "idpadre": "1",
+            "descripcion": "Tipos de Pago",
+            "href": "/basic/gstipopago",
+            "icono": ""
+        },
+        {
+            "idpadre": "1",
+            "descripcion": "Detalle Tipo Pago",
+            "href": "/basic/gsdetalletipopago",
+            "icono": ""
+        },
+        {
+            "idpadre": "0",
+            "descripcion": "Producto",
+            "href": "",
+            "icono": "icon-desktop"
+        },
+        {
+            "idpadre": "17",
+            "descripcion": "Nuevo",
+            "href": "/producto",
+            "icono": ""
+        }
+    ]
+}
