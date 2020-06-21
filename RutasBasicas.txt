@@ -1,0 +1,9 @@
+Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjEsImlhdCI6MTU5MjYyNjQyOX0.kKli3dpGqve2l0nlQ-qL1VTTQBblpoTHj_drakRYs44
+--Crear Vistas--
+Get http://127.0.0.1:3333/apiStore/v1/confi/vistas Usa Token
+
+--Listar Menu--
+get http://127.0.0.1:3333/apiStore/v1/menu/mimenu
+
+--Crear Menu---
+post http://127.0.0.1:3333/apiStore/v1/menu/registro estructura Menu.json

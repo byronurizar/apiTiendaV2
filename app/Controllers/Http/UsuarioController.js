@@ -124,12 +124,12 @@ class UsuarioController {
         let data = null;
         let dataSalida = {};
         let existeCorreo = false;
-        
+
         let dataUsuario = {};
         try {
             let uidActual = "";
             const { email, password, name, proveedor, uid, urlfoto } = request.all();
-            
+
             const infoPersona = await Database
                 .table('users').where('username', email);
             Database.close();
@@ -240,12 +240,17 @@ class UsuarioController {
             data = null;
             console.log(err);
         }
-        return response.status(codigoHttp).json({
+        const salida = {
             codigo,
             error,
             respuesta,
             data
-        });
+        }
+//         let jsonString = JSON.stringify(salida);
+//         let objBase64 = Buffer.from(jsonString).toString("base64");
+// console.log({objBase64});
+//         return response.status(codigoHttp).json({objBase64});
+return response.status(codigoHttp).json(salida);
     }
 }
 
