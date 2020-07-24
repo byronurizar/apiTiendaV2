@@ -155,7 +155,7 @@ class CrearVistaController {
             data=await Database
             .raw(`CREATE OR REPLACE VIEW vistaComercioProductos
             AS
-            select a.id,a.nombre,a.descripcion,a.descripcionCorta,a.precio,a.oferta,Concat(b.pathImagen,b.codigoImagen) as pathImagen,b.esImagenPrincipal,a.idCatalogo  from productos a
+            select a.id,a.nombre,a.descripcion,a.descripcionCorta,a.precio,a.oferta,Concat(b.pathImagen,b.codigoImagen) as pathImagen,b.esImagenPrincipal,a.idCatalogo,a.idCategoria  from productos a
             inner join imagen_productos b
             on a.id=b.idProducto
             where a.idEstado=1 and b.idEstado=1 and b.esImagenPrincipal=1`);
@@ -198,7 +198,7 @@ class CrearVistaController {
             union all
             select CONCAT('cat',id) as id,concat('prov',idProveedor) as idpadre,descripcion,'soy catalogo' as href,'' as icono from catalogos where idEstado=1
             union all
-            select cat.id,concat('cat',prod.idCatalogo) as idpadre,cat.descripcion,'demo' as href,'' as icono from productos prod
+            select distinct cat.id,concat('cat',prod.idCatalogo) as idpadre,cat.descripcion,concat('/comercio/productos/',prod.idCatalogo,'/',prod.idCategoria) as href,'' as icono from productos prod
             inner join cat_categorias cat
             on prod.idCategoria=cat.id and cat.idEstado=1 and prod.idEstado=1
             inner join catalogos ctlog

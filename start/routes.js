@@ -150,7 +150,8 @@ Route.group(() => {
 
   Route.get('productos/comercio/listar', 'ProductoController.comercioListar');
   Route.get('productos/comercio/infoproducto/:id', 'ProductoController.infoProducto');
-
+  Route.get('productos/comercio/listar/:idCatalogo/:idCategoria', 'ProductoController.comercioListarFiltro');
+  
   //Info Adicional Producto
   Route.post('productos/infoadicional/registro', 'InfoAdicionalProductoController.registrar');
   Route.patch('productos/infoadicional/actualizar/:id', 'InfoAdicionalProductoController.actualizar');

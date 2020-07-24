@@ -2,7 +2,7 @@
 const Producto = use('App/Models/Producto');
 const Database = use('Database');
 class ProductoController {
-    async comercioListar({ response }) {
+    async comercioListar({response }) {
         let codigoHttp = 200;
         let codigo = 0;
         let error = '';
@@ -28,6 +28,43 @@ class ProductoController {
             data
         });
     }
+    async comercioListarFiltro({ params,response }) {
+        let codigoHttp = 200;
+        let codigo = 0;
+        let error = '';
+        let respuesta = '';
+        let data = null;
+        const { idCatalogo,idCategoria } = params;
+        let filtro={};
+        if(idCatalogo==0 && idCategoria==0){
+
+        }else{
+            filtro.idCatalogo=idCatalogo;
+            filtro.idCategoria=idCategoria;
+            
+
+        }
+        try {
+            data = await Database
+                .table('vistaComercioProductos')
+                .where(filtro)
+            //    Database.close();
+        } catch (err) {
+            codigoHttp = 500;
+            codigo = -1;
+            error = err.message;
+            respuesta = 'Ocurrió un error al realizar la acción solicitada';
+            data = null;
+        }
+
+        return response.status(codigoHttp).json({
+            codigo,
+            error,
+            respuesta,
+            data
+        });
+    }
+    
 
     async infoProducto({ params, response }) {
         let codigoHttp = 200;

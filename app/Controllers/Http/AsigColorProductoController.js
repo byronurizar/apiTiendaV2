@@ -2,14 +2,14 @@
 const AsigColorProducto = use('App/Models/AsigColorProducto');
 const Database = use('Database');
 class AsigColorProductoController {
-    async listar({ auth,params, response }) {
+    async listar({params, response }) {
         let codigoHttp = 200;
         let codigo = 0;
         let error = '';
         let respuesta = '';
         let data = null;
 
-        const usuario = await auth.getUser();
+        // const usuario = await auth.getUser();
         const { id } = params;
         try {
             data = await Database
