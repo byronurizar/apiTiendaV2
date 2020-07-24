@@ -41,7 +41,7 @@ class ProductoController {
             
             data =await Database
             .select('vistaComercioProductos.id','vistaComercioProductos.nombre','vistaComercioProductos.descripcion','vistaComercioProductos.descripcionCorta','vistaComercioProductos.pathImagen','vistaComercioProductos.esImagenPrincipal',
-            'vistaComercioProductos.precio','vistaComercioProductos.oferta','proveedors.nombre as proveedor',
+            'vistaComercioProductos.precio','vistaComercioProductos.oferta','proveedors.nombre as proveedor','proveedors.num_dias_minimo_ciudad','proveedors.num_dias_maximo_ciudad','proveedors.num_dias_minimo_interior','proveedors.num_dias_maximo_interior','proveedors.observaciones',
             'catalogos.descripcion as catalogo')
             .from('vistaComercioProductos')
             .innerJoin('catalogos','vistaComercioProductos.idCatalogo','catalogos.id')

@@ -37,11 +37,11 @@ class CrearVistaController {
                     SELECT a.id,a.descripcion,b.descripcion AS idEstado 
                     FROM cat_rols a INNER JOIN cat_estados b ON a.idEstado=b.id 
                     WHERE a.idEstado IN(1,2)`);
-
+                    
             data =await Database
             .raw(`CREATE OR REPLACE VIEW vistaProveedores
             AS
-            SELECT a.id,a.nombre,a.descripcion,a.direccion,b.descripcion AS idEstado FROM proveedors a
+            SELECT a.id,a.nombre,a.descripcion,a.direccion,b.descripcion AS idEstado,a.num_dias_minimo_ciudad,a.num_dias_maximo_ciudad,a.num_dias_minimo_interior,a.num_dias_maximo_interior,a.observaciones FROM proveedors a
             INNER JOIN cat_estados b
             ON a.idEstado=b.id
             WHERE a.idEstado IN(1,2)`);
@@ -190,6 +190,23 @@ class CrearVistaController {
             ON a.idTalla=c.id
             LEFT JOIN cat_colores d
             ON a.idTalla=d.id`);
+
+            data=await Database
+            .raw(`create or replace view menupublico
+            as
+            select concat('prov',id) as id,0 as idpadre,nombre as descripcion,'Soy proveedor' as href,'icono' as icono from proveedors where idEstado=1
+            union all
+            select CONCAT('cat',id) as id,concat('prov',idProveedor) as idpadre,descripcion,'soy catalogo' as href,'' as icono from catalogos where idEstado=1
+            union all
+            select cat.id,concat('cat',prod.idCatalogo) as idpadre,cat.descripcion,'demo' as href,'' as icono from productos prod
+            inner join cat_categorias cat
+            on prod.idCategoria=cat.id and cat.idEstado=1 and prod.idEstado=1
+            inner join catalogos ctlog
+            on prod.idCatalogo=ctlog.id and ctlog.idEstado=1
+            inner join proveedors prov
+            on ctlog.idProveedor=prov.id and prov.idEstado=1;
+            `);
+
 
             Database.close();
         } catch (err) {

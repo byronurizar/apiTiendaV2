@@ -52,21 +52,39 @@ class MenuController {
         let error = '';
         let respuesta = '';
         let data = null;
-
-        const usuario = await auth.getUser();
+        let esMenuPublico = false;
         try {
-            //data = await Categoria.all();
+            const existeToken = await auth.getUser();
+            let idRol = existeToken.$attributes.idRol;
+            if (idRol !== 1) {
+                codigo=2;
+                data = await Database
+                .table('menupublico');
+                esMenuPublico = true;
+            }
+        }
+        catch (ex) {
+            codigo=2;
+            esMenuPublico = true;
             data = await Database
-                .table('menus');
+            .table('menupublico');
+        }
 
+        if (!esMenuPublico) {
+            console.log("Entro en ");
+            try {
+                const usuario = await auth.getUser();
+                data = await Database
+                    .table('menus');
 
-            //await Database.close();
-        } catch (err) {
-            codigoHttp = 500;
-            codigo = -1;
-            error = err.message;
-            respuesta = 'Ocurrió un error al realizar la acción solicitada';
-            data = null;
+                //await Database.close();
+            } catch (err) {
+                codigoHttp = 500;
+                codigo = -1;
+                error = err.message;
+                respuesta = 'Ocurrió un error al realizar la acción solicitada';
+                data = null;
+            }
         }
 
         return response.status(codigoHttp).json({

@@ -77,7 +77,8 @@ Route.group(() => {
   Route.post('proveedores/registro', 'ProveedorController.registrar');
   Route.patch('proveedores/actualizar/:id', 'ProveedorController.actualizar');
   Route.get('proveedores/listar', 'ProveedorController.listar');
-
+  Route.get('proveedores/:id', 'ProveedorController.infoProveedor');
+  
   //Teléfono Proveedor
   Route.post('proveedores/telefonos/registro', 'TelefonoProveedorController.registrar');
   Route.patch('proveedores/telefonos/actualizar/:id', 'TelefonoProveedorController.actualizar');
