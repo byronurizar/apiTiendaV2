@@ -207,6 +207,19 @@ class CrearVistaController {
             on ctlog.idProveedor=prov.id and prov.idEstado=1;
             `);
 
+            data=await Database
+            .raw(`create or replace view vistaDireccionesUsuario
+            as
+            select a.user_id,a.id,a.idMunicipio,a.direccion,a.puntoReferencia,d.descripcion as Estado,a.created_at as Creacion,c.descripcion as Departamento,b.descripcion as Municipio from direccion_usuarios a
+            inner join cat_municipios b
+            on a.idMunicipio=b.id
+            inner join cat_departamentos c
+            on b.idDepartamento=c.id
+            inner join cat_estados d
+            on a.idEstado=d.id;
+            `);
+
+
 
             Database.close();
         } catch (err) {

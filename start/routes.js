@@ -133,11 +133,11 @@ Route.group(() => {
   Route.get('personas/telefonos/listar', 'TelefonoPersonaController.listar');
   Route.get('personas/telefonos/listar/persona/:id', 'TelefonoPersonaController.telefonosPersona');
 
-  //Persona Direccion
-  Route.post('personas/direcciones/registro', 'DireccionPersonaController.registrar');
-  Route.patch('personas/direcciones/actualizar/:id', 'DireccionPersonaController.actualizar');
-  Route.get('personas/direcciones/listar', 'DireccionPersonaController.listar');
-  Route.get('personas/direcciones/listar/persona/:id', 'DireccionPersonaController.direccionesPersona');
+  //Usuario Direccion
+  Route.post('usuario/direcciones/registro', 'DireccionUsuarioController.registrar');
+  Route.patch('usuario/direcciones/actualizar/:id', 'DireccionUsuarioController.actualizar');
+  Route.get('usuario/direcciones/listar', 'DireccionUsuarioController.listar');
+  Route.get('usuario/misdirecciones', 'DireccionUsuarioController.direccionesUsuario');
 
   //Productos
   Route.post('productos/registro', 'ProductoController.registrar');

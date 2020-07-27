@@ -6,20 +6,40 @@ class UsuarioController {
     async login({ request, auth, response }) {
         let codigoHttp = 200;
         let codigo = 0;
+        let dataSalida = {};
         let error = '';
         let respuesta = '';
         let data = null;
 
         const { email, password } = request.all();
         try {
-            const token = await auth.attempt(email, password);
-            codigo = 0;
-            data = token;
+            const infoPersona = await Database
+                .table('users').where({ username: email });
+
+            if (infoPersona[0]) {
+                console.log("Datos",infoPersona[0]);
+                if (infoPersona[0].activo == true) {
+                    const token = await auth.attempt(email, password);
+                    dataSalida.token = token;
+                    dataSalida.usuario = infoPersona[0];
+                    data = dataSalida;
+                    codigo = 0;
+                } else {
+                    codigo = -1;
+                    respuesta = 'El usuario se encuentra inactivo, por favor comuniquese con el administrador del sistema';
+                    error = 'No se logro ingresar al sistema';
+                }
+            } else {
+                codigo = -1;
+                respuesta = "Usuario y contraseña incorrectos, por favor intente nuevamente";
+                error = 'Ocurrió un error al realizar la acción solicitada';
+                data = null;
+            }
         } catch (err) {
             codigoHttp = 500;
             codigo = -1;
-            error = "Usuario y contraseña incorrectos, por favor intente nuevamente";
-            respuesta = 'Ocurrió un error al realizar la acción solicitada';
+            respuesta = "Usuario y contraseña incorrectos, por favor intente nuevamente";
+            error = 'Ocurrió un error al realizar la acción solicitada';
             data = null;
         }
 
@@ -61,7 +81,7 @@ class UsuarioController {
             const { primerNombre, segundoNombre, otrosNombres, primerApellido, segundoApellido, otrosApellidos, fechaNacimiento, idGenero, correo, idMunicipio, idEstado, contrasenia } = request.all();
             const infoPersona = await Database
                 .table('users').where('username', correo);
-            Database.close();
+            // Database.close();
             await infoPersona.forEach(fila => {
                 existeCorreo = true;
                 codigo = -1;
@@ -246,11 +266,11 @@ class UsuarioController {
             respuesta,
             data
         }
-//         let jsonString = JSON.stringify(salida);
-//         let objBase64 = Buffer.from(jsonString).toString("base64");
-// console.log({objBase64});
-//         return response.status(codigoHttp).json({objBase64});
-return response.status(codigoHttp).json(salida);
+        //         let jsonString = JSON.stringify(salida);
+        //         let objBase64 = Buffer.from(jsonString).toString("base64");
+        // console.log({objBase64});
+        //         return response.status(codigoHttp).json({objBase64});
+        return response.status(codigoHttp).json(salida);
     }
 }
 

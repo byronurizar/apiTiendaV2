@@ -2,14 +2,14 @@
 const Deptartamento = use('App/Models/CatDepartamento');
 const Database = use('Database');
 class DepartamentoController {
-    async listar({ auth, response }) {
+    async listar({  response }) {
         let codigoHttp = 200;
         let codigo = 0;
         let error = '';
         let respuesta = '';
         let data = null;
 
-        const usuario = await auth.getUser();
+        // const usuario = await auth.getUser();
         try {
             // data = await Deptartamento.all();
             data = await Database

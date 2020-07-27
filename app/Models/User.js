@@ -97,8 +97,8 @@ class User extends Model {
   telefonosPersona(){
     return this.hasMany('App/Models/TelefonoPersona')
   }
-  direccionesPersona(){
-    return this.hasMany('App/Models/DireccionPersona')
+  direccionesUsuario(){
+    return this.hasMany('App/Models/DireccionUsuario')
   }
   estadosPedido(){
     return this.hasMany('App/Models/CatEstadoPedido')
