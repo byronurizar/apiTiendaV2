@@ -37,9 +37,9 @@ class DireccionUsuarioController {
         const usuario = await auth.getUser();
         const { id } = usuario;
         try {
-            data=await Database
-            .table('vistaDireccionesUsuario')
-            .where({user_id:id});
+            data = await Database
+                .table('vistaDireccionesUsuario')
+                .where({ user_id: id, idEstado: 1 });
 
         } catch (err) {
             codigoHttp = 500;
@@ -66,12 +66,12 @@ class DireccionUsuarioController {
         const direccionUsuario = new DireccionUsuario();
         try {
             const usuario = await auth.getUser();
-            let idEstado=1;
+            let idEstado = 1;
             const { idMunicipio, direccion, puntoReferencia } = request.all();
             direccionUsuario.fill({
                 idMunicipio,
-                direccion, 
-                puntoReferencia, 
+                direccion,
+                puntoReferencia,
                 idEstado
             });
             await usuario.direccionesUsuario().save(direccionUsuario);
@@ -101,7 +101,7 @@ class DireccionUsuarioController {
             const usuario = await auth.getUser();
             const { id } = params;
             const direccionUsuario = await DireccionUsuario.find(id);
-            await direccionUsuario.merge(request.only(['idMunicipio','direccion','puntoReferencia','idEstado']));
+            await direccionUsuario.merge(request.only(['idMunicipio', 'direccion', 'puntoReferencia', 'idEstado']));
             await direccionUsuario.save();
             data = direccionUsuario;
             respuesta = 'Se actualizó la dirección exitosamente '

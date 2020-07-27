@@ -210,7 +210,7 @@ class CrearVistaController {
             data=await Database
             .raw(`create or replace view vistaDireccionesUsuario
             as
-            select a.user_id,a.id,a.idMunicipio,a.direccion,a.puntoReferencia,d.descripcion as Estado,a.created_at as Creacion,c.descripcion as Departamento,b.descripcion as Municipio from direccion_usuarios a
+            select a.user_id,a.id,a.idMunicipio,c.id as idDepartamento,a.direccion,a.puntoReferencia,d.descripcion as Estado,DATE_FORMAT(a.created_at,'%d/%m/%Y') as Creacion,c.descripcion as Departamento,b.descripcion as Municipio,a.idEstado from direccion_usuarios a
             inner join cat_municipios b
             on a.idMunicipio=b.id
             inner join cat_departamentos c
