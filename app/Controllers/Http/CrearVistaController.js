@@ -180,7 +180,7 @@ class CrearVistaController {
             data=await Database
             .raw(`CREATE OR replace VIEW vistaDetallePedido
             as
-            SELECT  a.idPedido AS id,b.id AS IdProducto,b.nombre AS Producto,b.codigo,a.cantidad,(a.precio-a.descuento) AS Precio,
+            SELECT  a.idPedido AS id,b.id AS IdProducto,b.nombre AS Producto,f.nombre as proveedor,b.codigo,a.cantidad,(a.precio-a.descuento) AS Precio,
             case when(c.descripcion IS NULL) then 'N/A' ELSE c.descripcion END AS Talla,
             case when(d.descripcion IS NULL) then 'N/A' ELSE d.descripcion END AS Color 
             FROM detalle_pedidos a
@@ -189,7 +189,11 @@ class CrearVistaController {
             left JOIN talla_productos c
             ON a.idTalla=c.id
             LEFT JOIN cat_colores d
-            ON a.idTalla=d.id`);
+            ON a.idTalla=d.id
+            inner join catalogos e
+            on b.idCatalogo=e.id
+            inner join proveedors f
+            on e.idProveedor=f.id;`);
 
             data=await Database
             .raw(`create or replace view menupublico
@@ -210,7 +214,7 @@ class CrearVistaController {
             data=await Database
             .raw(`create or replace view vistaDireccionesUsuario
             as
-            select a.user_id,a.id,a.idMunicipio,c.id as idDepartamento,a.direccion,a.puntoReferencia,d.descripcion as Estado,DATE_FORMAT(a.created_at,'%d/%m/%Y') as Creacion,c.descripcion as Departamento,b.descripcion as Municipio,a.idEstado from direccion_usuarios a
+            select a.user_id,a.nombre,a.apellido,a.telefono,a.id,a.idMunicipio,c.id as idDepartamento,a.direccion,a.puntoReferencia,d.descripcion as Estado,DATE_FORMAT(a.created_at,'%d/%m/%Y') as Creacion,c.descripcion as Departamento,b.descripcion as Municipio,a.idEstado from direccion_usuarios a
             inner join cat_municipios b
             on a.idMunicipio=b.id
             inner join cat_departamentos c
@@ -219,6 +223,26 @@ class CrearVistaController {
             on a.idEstado=d.id;
             `);
 
+            data=await Database
+            .raw(`create or replace view vistaPedidosUsuarios
+            as
+            select a.user_id,e.email,e.name,ifnull(e.proveedor,'') as proveedor,a.id as idPedido,DATE_FORMAT(a.created_at,'%d/%m/%Y') as fechaIngreso,c.descripcion as estado,
+            (select sum(cantidad*precio) from detalle_pedidos where idPedido=a.id) as total,
+            b.descripcion tipoPago,ifnull(a.observaciones,'') as observaciones,
+            f.nombre,f.apellido,f.telefono,f.direccion,f.puntoReferencia,g.descripcion as municipio,h.descripcion as departamento from pedidos a
+            inner join cat_tipo_pagos b
+            on a.idTipoPago=b.id
+            inner join cat_estado_pedidos c
+            on a.idEstadoPedido=c.id
+            inner join users e
+            on a.user_id=e.id
+            inner join direccion_usuarios f
+            on a.idDireccionUsuario=f.id
+            inner join cat_municipios g
+            on f.idMunicipio=g.id
+            inner join cat_departamentos h
+            on g.idDepartamento=h.id;
+            `);
 
 
             Database.close();

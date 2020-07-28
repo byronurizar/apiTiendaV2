@@ -27,6 +27,38 @@ class PedidoController {
             data
         });
     }
+
+    async pedidosUsuarios({ auth, params, response }) {
+        let codigoHttp = 200;
+        let codigo = 0;
+        let error = '';
+        let respuesta = '';
+        let data = null;
+
+        const usuario = await auth.getUser();
+        const { id } = usuario;
+        try {
+            data = await Database
+                .table('vistaPedidosUsuarios');
+                //.where({ user_id: id, idEstado: 1 });
+
+        } catch (err) {
+            codigoHttp = 500;
+            codigo = -1;
+            error = err.message;
+            respuesta = 'Ocurrió un error al realizar la acción solicitada';
+            data = null;
+        }
+
+        return response.status(codigoHttp).json({
+            codigo,
+            error,
+            respuesta,
+            data
+        });
+    }
+
+
     async registrar({ auth, request, response }) {
         let codigoHttp = 200;
         let codigo = 0;
@@ -37,8 +69,10 @@ class PedidoController {
         const pedido = new Pedido();
         try {
             const usuario = await auth.getUser();
-            const {idPersona,idTipoPago,idEstadoPedido} = request.all();
+            const {idPersona,idTipoPago,idEstadoPedido,idDireccionUsuario,observaciones} = request.all();
             pedido.fill({
+                idDireccionUsuario,
+                observaciones,
                 idPersona,
                 idTipoPago,
                 idEstadoPedido
@@ -90,6 +124,33 @@ class PedidoController {
         });
 
     }
+    async detallepedido({params, response }) {
+        let codigoHttp = 200;
+        const {id}=params;
+        let codigo = 0;
+        let error = '';
+        let respuesta = '';
+        let data = null;
+        try {
+            data = await Database
+                .table('vistaDetallePedido')
+                .where("id",id);
+        } catch (err) {
+            codigoHttp = 500;
+            codigo = -1;
+            error = err.message;
+            respuesta = 'Ocurrió un error al realizar la acción solicitada';
+            data = null;
+        }
+
+        return response.status(codigoHttp).json({
+            codigo,
+            error,
+            respuesta,
+            data
+        });
+    }
+    
     async listarInfoDetallePedido({params, response }) {
         let codigoHttp = 200;
         const {id}=params;

@@ -110,6 +110,7 @@ Route.group(() => {
   Route.post('estadopedido/registro', 'CatEstadoPedidoController.registrar');
   Route.patch('estadopedido/actualizar/:id', 'CatEstadoPedidoController.actualizar');
   Route.get('estadopedido/listar', 'CatEstadoPedidoController.listar');
+  
 
   //Tipo Pago
   Route.post('tipopago/registro', 'CatTipoPagoController.registrar');
@@ -203,6 +204,8 @@ Route.group(() => {
   Route.patch('pedido/actualizar/:id', 'PedidoController.actualizar');
   Route.get('pedido/listar', 'PedidoController.listar');
   Route.get('pedido/infopedido/:id', 'PedidoController.listarInfoDetallePedido');
+  Route.get('pedido/pedidosusuario', 'PedidoController.pedidosUsuarios');
+  Route.get('pedido/detalle/:id', 'PedidoController.detallepedido');
   
 
   //Detalle Pedido
@@ -213,7 +216,7 @@ Route.group(() => {
 
   //Recibe pedido
   Route.post('pedido/recibe/registro', 'InfoRecibePedidoController.registrar');
-  Route.get('pedido/detalle/:id', 'InfoRecibePedidoController.detallepedido');
+ // Route.get('pedido/detalle/:id', 'InfoRecibePedidoController.detallepedido');
 
   //Configuracion
   Route.get('confi/vistas', 'CrearVistaController.crearVistas');

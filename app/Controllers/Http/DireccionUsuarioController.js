@@ -67,8 +67,11 @@ class DireccionUsuarioController {
         try {
             const usuario = await auth.getUser();
             let idEstado = 1;
-            const { idMunicipio, direccion, puntoReferencia } = request.all();
+            const {nombre,apellido,telefono,idMunicipio, direccion, puntoReferencia } = request.all();
             direccionUsuario.fill({
+                nombre,
+                apellido,
+                telefono,
                 idMunicipio,
                 direccion,
                 puntoReferencia,
@@ -101,7 +104,7 @@ class DireccionUsuarioController {
             const usuario = await auth.getUser();
             const { id } = params;
             const direccionUsuario = await DireccionUsuario.find(id);
-            await direccionUsuario.merge(request.only(['idMunicipio', 'direccion', 'puntoReferencia', 'idEstado']));
+            await direccionUsuario.merge(request.only(['nombre','apellido','telefono','idMunicipio', 'direccion', 'puntoReferencia', 'idEstado']));
             await direccionUsuario.save();
             data = direccionUsuario;
             respuesta = 'Se actualizó la dirección exitosamente '

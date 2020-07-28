@@ -9,6 +9,8 @@ class PedidoSchema extends Schema {
       table.increments()
       table.integer('idTipoPago').unsigned().references('id').inTable('cat_tipo_pagos')
       table.integer('idEstadoPedido').unsigned().references('id').inTable('cat_estado_pedidos')
+      table.integer('idDireccionUsuario').unsigned().references('id').inTable('direccion_usuarios')
+      table.string('observaciones', 500)
       table.integer('user_id')
       table.timestamps()
     })

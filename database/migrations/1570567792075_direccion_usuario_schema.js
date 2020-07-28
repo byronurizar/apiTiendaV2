@@ -8,6 +8,9 @@ class DireccionUsuarioSchema extends Schema {
     this.create('direccion_usuarios', (table) => {
       table.increments()
       table.integer('user_id').unsigned().references('id').inTable('users')
+      table.string('nombre', 80).notNullable()
+      table.string('apellido', 80).notNullable()
+      table.string('telefono', 80).notNullable()
       table.integer('idMunicipio').unsigned().references('id').inTable('cat_municipios')
       table.string('direccion', 500).notNullable()
       table.string('puntoReferencia', 500).notNullable()
