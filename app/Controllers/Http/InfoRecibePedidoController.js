@@ -1,8 +1,8 @@
 'use strict'
 const RecibePedido = use('App/Models/InfoRecibePedido');
 const Pedido = use('App/Models/Pedido');
-const DetallePedido = use('App/Models/DetallePedido');
-const Producto = use('App/Models/Producto');
+                        const DetallePedido = use('App/Models/DetallePedido');
+                        const Producto = use('App/Models/Producto');
 const Database = use('Database');
 class InfoRecibePedidoController {
     async registrar({ request, response }) {
@@ -148,3 +148,4 @@ class InfoRecibePedidoController {
 }
 
 module.exports = InfoRecibePedidoController
+                            

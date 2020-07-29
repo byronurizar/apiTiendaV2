@@ -215,7 +215,7 @@ Route.group(() => {
 
 
   //Recibe pedido
-  Route.post('pedido/recibe/registro', 'InfoRecibePedidoController.registrar');
+  //Route.post('pedido/recibe/registro', 'InfoRecibePedidoController.registrar');
  // Route.get('pedido/detalle/:id', 'InfoRecibePedidoController.detallepedido');
 
   //Configuracion

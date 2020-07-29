@@ -169,13 +169,17 @@ class CrearVistaController {
             data=await Database
             .raw(`CREATE OR replace VIEW vistaInfoPedido
             as
-            SELECT a.id,a.created_at AS Fecha,CONCAT(b.nombres,' ',b.apellidos) AS Nombre,b.telefonos,b.direccion,b.puntoReferencia,c.descripcion AS TipoPago,d.descripcion AS Estado FROM pedidos a
-            INNER JOIN info_recibe_pedidos b
-            ON a.id=b.idPedido
+            SELECT a.id,DATE_FORMAT(a.created_at,'%d/%m/%Y') AS Fecha,CONCAT(b.nombre,' ',b.apellido) AS Nombre,b.telefono,concat(b.direccion,',',e.descripcion,',',f.descripcion) as direccion,b.puntoReferencia,c.descripcion AS TipoPago,d.descripcion AS Estado,ifnull(observaciones,'') as observaciones,a.costoEnvio FROM pedidos a
+            INNER JOIN direccion_usuarios b
+            ON a.idDireccionUsuario=b.id
             INNER JOIN cat_tipo_pagos c
             ON a.idTipoPago=c.id
             INNER JOIN cat_estado_pedidos d
-            ON a.idEstadoPedido=d.id`);
+            ON a.idEstadoPedido=d.id
+            inner join cat_municipios e
+            on b.idMunicipio=e.id
+            inner join cat_departamentos f
+            on e.idDepartamento=f.id;`);
 
             data=await Database
             .raw(`CREATE OR replace VIEW vistaDetallePedido
@@ -227,7 +231,7 @@ class CrearVistaController {
             .raw(`create or replace view vistaPedidosUsuarios
             as
             select a.user_id,e.email,e.name,ifnull(e.proveedor,'') as proveedor,a.id as idPedido,DATE_FORMAT(a.created_at,'%d/%m/%Y') as fechaIngreso,c.descripcion as estado,
-            (select sum(cantidad*precio) from detalle_pedidos where idPedido=a.id) as total,
+            (select sum(cantidad*precio) from detalle_pedidos where idPedido=a.id)+a.costoEnvio as total,a.costoEnvio,
             b.descripcion tipoPago,ifnull(a.observaciones,'') as observaciones,
             f.nombre,f.apellido,f.telefono,f.direccion,f.puntoReferencia,g.descripcion as municipio,h.descripcion as departamento from pedidos a
             inner join cat_tipo_pagos b

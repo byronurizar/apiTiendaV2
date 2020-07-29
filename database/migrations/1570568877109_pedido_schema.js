@@ -11,6 +11,7 @@ class PedidoSchema extends Schema {
       table.integer('idEstadoPedido').unsigned().references('id').inTable('cat_estado_pedidos')
       table.integer('idDireccionUsuario').unsigned().references('id').inTable('direccion_usuarios')
       table.string('observaciones', 500)
+      table.integer('costoEnvio').defaultTo(0)
       table.integer('user_id')
       table.timestamps()
     })
