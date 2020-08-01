@@ -227,5 +227,6 @@ Route.group(() => {
 
 }).prefix('apiStore/v1/');
 
+//Se debe de actualizar la informacion del repositorio ya que se renombro el nombre de usuario
 //Agregar que los productos estan amarrados a un catalogo y analizar lo de varios prdoductos en una imagen
 
