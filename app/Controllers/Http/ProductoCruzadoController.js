@@ -14,7 +14,7 @@ class ProductoCruzadoController {
             const {idProducto}=params;
             data =await Database
             .raw(`select * from vistaComercioProductos where id in(
-                select idProducto from detalle_producto_cruzados where idProductoCruzado in(
+                select idProducto from detalle_producto_cruzados where idEstado=1 and idProductoCruzado in(
                     select id from producto_cruzados where idProducto=${idProducto}
                     )
             )`);
