@@ -27,20 +27,29 @@ class DireccionUsuarioController {
             data
         });
     }
-    async direccionesUsuario({ auth, params, response }) {
+    async direccionesUsuario({ auth, request, response }) {
         let codigoHttp = 200;
         let codigo = 0;
         let error = '';
         let respuesta = '';
         let data = null;
-
+        const query=request.get();
+        let queryWhere={};
+        const idDireccion=query.id;
+        console.log({idDireccion});
+        if(idDireccion){
+            queryWhere.id=idDireccion;
+        }
+        
         const usuario = await auth.getUser();
         const { id } = usuario;
+        queryWhere.user_id=id;
+        queryWhere.idEstado=1;
+
         try {
             data = await Database
                 .table('vistaDireccionesUsuario')
-                .where({ user_id: id, idEstado: 1 });
-
+                .where(queryWhere);
         } catch (err) {
             codigoHttp = 500;
             codigo = -1;
