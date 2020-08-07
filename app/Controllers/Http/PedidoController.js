@@ -4,6 +4,8 @@ const Database = use('Database');
 const DetallePedido = use('App/Models/DetallePedido');
 const Producto = use('App/Models/Producto');
 class PedidoController {
+
+    /*
     async listar({ auth, response }) {
         let codigoHttp = 200;
         let codigo = 0;
@@ -29,6 +31,7 @@ class PedidoController {
             data
         });
     }
+    */
 
     async pedidosUsuarios({ auth, params, response }) {
         let codigoHttp = 200;
@@ -255,6 +258,7 @@ class PedidoController {
             data
         });
     }
+    
     async actualizar({ auth, params, request, response }) {
         let codigoHttp = 200;
         let codigo = 0;
@@ -265,7 +269,7 @@ class PedidoController {
             const usuario = await auth.getUser();
             const { id } = params;
             const pedido = await Pedido.find(id);
-            await pedido.merge(request.only(['idPersona', 'idTipoPago', 'idEstadoPedido']));
+            await pedido.merge(request.only(['idEstadoPedido']));
 
             await pedido.save();
             data = pedido;

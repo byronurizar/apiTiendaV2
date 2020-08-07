@@ -202,7 +202,6 @@ Route.group(() => {
   //Pedido
   Route.post('pedido/registro', 'PedidoController.registrar');
   Route.patch('pedido/actualizar/:id', 'PedidoController.actualizar');
-  Route.get('pedido/listar', 'PedidoController.listar');
   Route.get('pedido/infopedido/:id', 'PedidoController.listarInfoDetallePedido');
   Route.get('pedido/pedidosusuario', 'PedidoController.pedidosUsuarios');
   Route.get('pedido/detalle/:id', 'PedidoController.detallepedido');

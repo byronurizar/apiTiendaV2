@@ -233,7 +233,7 @@ class CrearVistaController {
             select a.user_id,e.email,e.name,ifnull(e.proveedor,'') as proveedor,a.id as idPedido,DATE_FORMAT(a.created_at,'%d/%m/%Y') as fechaIngreso,c.descripcion as estado,
             (select sum(cantidad*precio) from detalle_pedidos where idPedido=a.id)+a.costoEnvio as total,a.costoEnvio,
             b.descripcion tipoPago,ifnull(a.observaciones,'') as observaciones,
-            f.nombre,f.apellido,f.telefono,f.direccion,f.puntoReferencia,g.descripcion as municipio,h.descripcion as departamento from pedidos a
+            f.nombre,f.apellido,f.telefono,f.direccion,f.puntoReferencia,g.descripcion as municipio,h.descripcion as departamento,a.idEstadoPedido from pedidos a
             inner join cat_tipo_pagos b
             on a.idTipoPago=b.id
             inner join cat_estado_pedidos c
