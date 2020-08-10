@@ -12,7 +12,7 @@ class ProductoSchema extends Schema {
       table.integer('idCategoria').unsigned().references('id').inTable('cat_categorias')
       table.string('nombre', 100).notNullable()
       table.string('codigo', 100).notNullable().unique()
-      table.string('descripcion', 500)
+      table.string('descripcion', 1500)
       table.string('descripcionCorta', 500)
       table.decimal('precio').notNullable()
       table.decimal('oferta').defaultTo(0)

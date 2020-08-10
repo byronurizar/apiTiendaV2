@@ -1,14 +1,14 @@
 'use strict'
 const InfoAdicionalProducto=use('App/Models/InfoAdicionalProducto');
 class InfoAdicionalProductoController {
-    async listar({ auth, params, response }) {
+    async listar({  params, response }) {
         let codigoHttp = 200;
         let codigo = 0;
         let error = '';
         let respuesta = '';
         let data = null;
 
-        const usuario = await auth.getUser();
+        // const usuario = await auth.getUser();
         try {
             const { id } = params;
             data = await InfoAdicionalProducto.query().where('idProducto', '=', id).fetch();

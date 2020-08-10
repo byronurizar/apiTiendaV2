@@ -73,7 +73,7 @@ class DetalledetallePedidoController {
             const usuario = await auth.getUser();
             const { id } = params;
             const detallePedido = await DetalledetallePedido.find(id);
-            await detallePedido.merge(request.only(['idPedido', 'idProducto', 'idTalla', 'idColor', 'cantidad', 'precio', 'descuento']));
+            await detallePedido.merge(request.only(['idPedido', 'idProducto', 'idTalla', 'idColor', 'cantidad', 'precio', 'descuento','idEstado']));
 
             await detallePedido.save();
             data = detallePedido;

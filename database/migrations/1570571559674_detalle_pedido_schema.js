@@ -14,6 +14,7 @@ class DetallePedidoSchema extends Schema {
       table.integer('cantidad').notNullable()
       table.decimal('precio').notNullable()
       table.decimal('descuento')
+      table.integer('idEstado').unsigned().references('id').inTable('cat_estados')
       table.timestamps()
     })
   }

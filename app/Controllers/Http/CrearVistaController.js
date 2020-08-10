@@ -186,7 +186,7 @@ class CrearVistaController {
             as
             SELECT  a.id,a.idPedido,b.id AS IdProducto,b.nombre AS Producto,f.nombre as proveedor,b.codigo,a.cantidad,(a.precio-a.descuento) AS Precio,
             case when(c.descripcion IS NULL) then 'N/A' ELSE c.descripcion END AS Talla,
-            case when(d.descripcion IS NULL) then 'N/A' ELSE d.descripcion END AS Color 
+            case when(d.descripcion IS NULL) then 'N/A' ELSE d.descripcion END AS Color,a.idEstado 
             FROM detalle_pedidos a
             INNER JOIN productos b
             ON a.idProducto=b.id

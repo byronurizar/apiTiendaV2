@@ -3,6 +3,7 @@ const Pedido = use('App/Models/Pedido');
 const Database = use('Database');
 const DetallePedido = use('App/Models/DetallePedido');
 const Producto = use('App/Models/Producto');
+const EstadoPedido=use('App/Models/CatEstadoPedido');
 class PedidoController {
 
     /*
@@ -224,6 +225,7 @@ class PedidoController {
                         if (idColor <= 0) {
                             idColor = null;
                         }
+                        let idEstado=1;
                         const detallePedidoInsert = await DetallePedido.create({
                             idPedido,
                             idProducto,
@@ -231,7 +233,8 @@ class PedidoController {
                             idColor,
                             cantidad,
                             precio,
-                            descuento
+                            descuento,
+                            idEstado
                         });
                     });
                     respuesta = 'Pedido registrado exitosamente'
@@ -269,7 +272,15 @@ class PedidoController {
             const usuario = await auth.getUser();
             const { id } = params;
             const pedido = await Pedido.find(id);
-            await pedido.merge(request.only(['idEstadoPedido']));
+            let {observaciones}=pedido;
+            const {idEstadoPedido}=request._body;
+            const estadoPedido=await EstadoPedido.findBy("id",idEstadoPedido);
+            const {descripcion}=estadoPedido;
+            observaciones+=`|${new Date().toLocaleDateString()} ${descripcion}`
+            await pedido.merge({
+                idEstadoPedido,
+                observaciones
+            });
 
             await pedido.save();
             data = pedido;
@@ -299,7 +310,7 @@ class PedidoController {
         try {
             data = await Database
                 .table('vistaDetallePedido')
-                .where("id", id);
+                .where({idPedido:id});
         } catch (err) {
             codigoHttp = 500;
             codigo = -1;
