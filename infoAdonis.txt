@@ -1,0 +1,44 @@
+instalación
+
+npm i -g @adonisjs/cli
+
+proyecto con vistas
+adonis new nombreProyecto 
+
+api
+adonis new rest-api2 --api-only
+
+
+Iniciar proyecto
+adonis serve --dev
+
+orm db
+https://adonisjs.com/docs/4.1/lucid
+
+crear controlador 
+adonis make:controller Usuario
+
+
+correr migraciones
+adonis migration:run
+
+crear modelos
+adonis make:model Proyecto -m
+
+
+Creación de excepciones para el manejo de errores
+adonis make:exception AccesoDenegado
+
+
+adonis make:model Tarea -m // El -m sirve para crear automaticamente la migracion
+
+
+correr migracion
+adonis migration:run
+
+
+crear controlador 
+adonis make:controller Tarea
+
+//Hacer roolback de migracion
+adonis migration:rollback /Elimina la ultima migracion realizada
