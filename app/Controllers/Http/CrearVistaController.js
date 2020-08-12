@@ -248,6 +248,17 @@ class CrearVistaController {
             on g.idDepartamento=h.id;
             `);
 
+            data=await Database
+            .raw(`create or replace view vistainfoadicionalsmartable
+            as
+            select a.id,a.idProducto,a.valor,b.descripcion as idTipoInfoAdicional,c.descripcion as idEstado from info_adicional_productos a
+            inner join cat_tipo_info_adicionals b
+            on a.idTipoInfoAdicional=b.id
+            inner join cat_estados c
+            on a.idEstado=c.id
+            where a.idEstado in(1,2);
+            `);
+
 
             Database.close();
         } catch (err) {
