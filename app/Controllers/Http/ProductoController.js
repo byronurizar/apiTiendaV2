@@ -28,7 +28,7 @@ class ProductoController {
             data
         });
     }
-    async comercioListarFiltro({ params,response }) {
+    async comercioxcatalogxcategoria({ params,response }) {
         let codigoHttp = 200;
         let codigo = 0;
         let error = '';
@@ -64,7 +64,38 @@ class ProductoController {
             data
         });
     }
-    
+    async comercioListarFiltro({ request,response }) {
+        let codigoHttp = 200;
+        let codigo = 0;
+        let error = '';
+        let respuesta = '';
+        let data = null;
+        const { filtro } = request.all();
+        
+        try {
+                data = await Database
+                .raw(`select * from vistaComercioProductos where nombre like '%${filtro}%' or descripcion like '%${filtro}%' or descripcionCorta like '%${filtro}%' or catalogo like '%${filtro}%' or categoria like '%${filtro}%' or proveedor like '%${filtro}%';`)
+            if (data.length > 0) {
+                data = data[0];
+            } else {
+                data = null;
+            }
+            //    Database.close();
+        } catch (err) {
+            codigoHttp = 500;
+            codigo = -1;
+            error = err.message;
+            respuesta = 'Ocurrió un error al realizar la acción solicitada';
+            data = null;
+        }
+
+        return response.status(codigoHttp).json({
+            codigo,
+            error,
+            respuesta,
+            data
+        });
+    }
 
     async infoProducto({ params, response }) {
         let codigoHttp = 200;

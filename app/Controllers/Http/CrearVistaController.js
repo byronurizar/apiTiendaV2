@@ -155,10 +155,17 @@ class CrearVistaController {
             data=await Database
             .raw(`CREATE OR REPLACE VIEW vistaComercioProductos
             AS
-            select a.id,a.nombre,a.descripcion,a.descripcionCorta,a.precio,a.oferta,Concat(b.pathImagen,b.codigoImagen) as pathImagen,b.esImagenPrincipal,a.idCatalogo,a.idCategoria  from productos a
+            select a.id,a.codigo,a.nombre,a.descripcion,a.descripcionCorta,a.precio,a.oferta,Concat(b.pathImagen,b.codigoImagen) as pathImagen,
+            b.esImagenPrincipal,a.idCatalogo,a.idCategoria,c.descripcion as catalogo,d.nombre as proveedor,e.descripcion as categoria  from productos a
             inner join imagen_productos b
             on a.id=b.idProducto
-            where a.idEstado=1 and b.idEstado=1 and b.esImagenPrincipal=1`);
+            inner join catalogos c
+            on a.idCatalogo=c.id and c.idEstado=1
+            inner join proveedors d
+            on c.idProveedor=d.id and d.idEstado=1
+            inner join cat_categorias e
+            on a.idCategoria=e.id
+            where a.idEstado=1 and b.idEstado=1 and b.esImagenPrincipal=1;`);
 
             data=await Database
             .raw(`CREATE OR REPLACE VIEW vistaImagenesProducto
