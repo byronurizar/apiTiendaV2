@@ -228,6 +228,7 @@ Route.group(() => {
 
   //Tipo de Información Adicional Producto
   Route.get('tipoinfoadicional/producto', 'CatTipoInfoAdicionalProductoController.listar');
+  Route.post('tipoinfoadicional/producto', 'CatTipoInfoAdicionalProductoController.registrar');
 
 }).prefix('apiStore/v1/');
 
