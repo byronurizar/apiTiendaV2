@@ -2,6 +2,31 @@
 const Catalogo=use('App/Models/Catalogo');
 const Database=use('Database');
 class CatalogoController {
+    async listarParaScraping({ auth,response }) {
+        let codigoHttp = 200;
+        let codigo = 0;
+        let error = '';
+        let respuesta = '';
+        let data = null;
+        const usuario = await auth.getUser();
+        try {
+            data = await Catalogo.all();
+        } catch (err) {
+            codigoHttp = 500;
+            codigo = -1;
+            error = err.message;
+            respuesta = 'Ocurrió un error al realizar la acción solicitada';
+            data = null;
+        }
+
+        return response.status(codigoHttp).json({
+            codigo,
+            error,
+            respuesta,
+            data
+        });
+    } 
+
     async listar({ auth,params, response }) {
         let codigoHttp = 200;
         let codigo = 0;

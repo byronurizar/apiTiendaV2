@@ -2,6 +2,31 @@
 const Producto = use('App/Models/Producto');
 const Database = use('Database');
 class ProductoController {
+        async listarParaScraping({ auth,response }) {
+            let codigoHttp = 200;
+            let codigo = 0;
+            let error = '';
+            let respuesta = '';
+            let data = null;
+            const usuario = await auth.getUser();
+            try {
+                data = await Producto.all();
+            } catch (err) {
+                codigoHttp = 500;
+                codigo = -1;
+                error = err.message;
+                respuesta = 'Ocurrió un error al realizar la acción solicitada';
+                data = null;
+            }
+    
+            return response.status(codigoHttp).json({
+                codigo,
+                error,
+                respuesta,
+                data
+            });
+        } 
+
     async comercioListar({response }) {
         let codigoHttp = 200;
         let codigo = 0;
