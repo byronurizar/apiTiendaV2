@@ -159,6 +159,7 @@ Route.group(() => {
   Route.patch('productos/infoadicional/:id', 'InfoAdicionalProductoController.actualizar');
   Route.get('productos/infoadicional/producto/:id', 'InfoAdicionalProductoController.listar');
   Route.get('productos/infoadicionalregproducto/:id', 'InfoAdicionalProductoController.listarinfosmarttable');
+  Route.get('productos/infoadicional/:id', 'InfoAdicionalProductoController.infoadicional');
 
   //Etiquetas a Producto
   Route.post('etiquetasproducto/registro', 'EtiquetaProductoController.registrar');

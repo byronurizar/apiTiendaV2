@@ -266,6 +266,14 @@ class CrearVistaController {
             where a.idEstado in(1,2);
             `);
 
+            data=await Database
+            .raw(`create or replace view vistaproductoinfoadicional
+            as
+            select a.*,b.descripcion as tipoInfoAdicional from info_adicional_productos a
+            inner join cat_tipo_info_adicionals b
+            on a.idTipoInfoAdicional=b.id
+            where a.idEstado in(1,2);
+            `);
 
             Database.close();
         } catch (err) {
