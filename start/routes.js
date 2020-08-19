@@ -155,6 +155,7 @@ Route.group(() => {
   Route.get('productocruzado', 'ProductoCruzadoController.listarParaScraping');
   Route.get('productocruzado/detalle', 'DetalleProductoCruzadoController.listar');
   Route.get('infoadicionalproductolistar', 'InfoAdicionalProductoController.listarParaScraping');
+  Route.get('imagenesproducto', 'ImagenProductoController.listarParaScraping');
 
   Route.get('productos/comercio/listar', 'ProductoController.comercioListar');
   Route.get('productos/comercio/infoproducto/:id', 'ProductoController.infoProducto');
