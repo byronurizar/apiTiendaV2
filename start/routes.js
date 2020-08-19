@@ -162,6 +162,8 @@ Route.group(() => {
   Route.get('productos/comercio/listar/:idCatalogo/:idCategoria', 'ProductoController.comercioxcatalogxcategoria');
   Route.post('productos/comercio/listar/filtro', 'ProductoController.comercioListarFiltro');
   
+
+  
   //Info Adicional Producto
   Route.post('productos/infoadicional', 'InfoAdicionalProductoController.registrar');
   Route.patch('productos/infoadicional/:id', 'InfoAdicionalProductoController.actualizar');

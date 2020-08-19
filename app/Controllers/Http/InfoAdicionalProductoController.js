@@ -82,6 +82,8 @@ class InfoAdicionalProductoController {
             data
         });
     }
+
+    
     
     async infoadicional({  params, response }) {
         let codigoHttp = 200;

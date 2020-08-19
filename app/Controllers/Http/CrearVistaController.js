@@ -273,6 +273,8 @@ class CrearVistaController {
             where a.idEstado in(1,2);
             `);
 
+            
+
             Database.close();
         } catch (err) {
             codigoHttp = 500;
