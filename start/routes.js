@@ -148,6 +148,14 @@ Route.group(() => {
   Route.get('productos/listar/precio/:desde/:asta', 'ProductoController.listarPorPrecio');
   Route.get('productos/categoria/:idCatalogo/:idProducto/', 'ProductoController.listarProductoPorCategoria');
   
+//Rutas para scraping
+  Route.get('productos', 'ProductoController.listarParaScraping');
+  Route.get('catalogos', 'CatalogoController.listarParaScraping');
+  Route.get('categorias', 'CategoriaController.listarParaScraping');
+  Route.get('productocruzado', 'ProductoCruzadoController.listarParaScraping');
+  Route.get('productocruzado/detalle', 'DetalleProductoCruzadoController.listar');
+  Route.get('infoadicionalproductolistar', 'InfoAdicionalProductoController.listarParaScraping');
+  Route.get('imagenesproducto', 'ImagenProductoController.listarParaScraping');
 
   Route.get('productos/comercio/listar', 'ProductoController.comercioListar');
   Route.get('productos/comercio/infoproducto/:id', 'ProductoController.infoProducto');
@@ -230,6 +238,8 @@ Route.group(() => {
   //Tipo de Información Adicional Producto
   Route.get('tipoinfoadicional/producto', 'CatTipoInfoAdicionalProductoController.listar');
   Route.post('tipoinfoadicional/producto', 'CatTipoInfoAdicionalProductoController.registrar');
+  Route.post('tipoinfoadicional/consulta', 'CatTipoInfoAdicionalProductoController.consultarDescripcion');
+  
 
 }).prefix('apiStore/v1/');
 

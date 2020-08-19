@@ -3,19 +3,43 @@ const Producto = use('App/Models/Producto');
 const ImagenProducto = use('App/Models/ImagenProducto');
 const Database = use('Database');
 class ImagenProductoController {
-    async listar({params, response }) {
+    async listarParaScraping({ auth, response }) {
+        let codigoHttp = 200;
+        let codigo = 0;
+        let error = '';
+        let respuesta = '';
+        let data = null;
+        const usuario = await auth.getUser();
+        try {
+            data = await ImagenProducto.all();
+        } catch (err) {
+            codigoHttp = 500;
+            codigo = -1;
+            error = err.message;
+            respuesta = 'Ocurrió un error al realizar la acción solicitada';
+            data = null;
+        }
+
+        return response.status(codigoHttp).json({
+            codigo,
+            error,
+            respuesta,
+            data
+        });
+    }
+    async listar({ params, response }) {
         let codigoHttp = 200;
         let codigo = 0;
         let error = '';
         let respuesta = '';
         let data = null;
         const { id } = params;
-        console.log("idProducto",id);
+        console.log("idProducto", id);
         try {
             // data = await ImagenProducto.query().where('idProducto', '=', id).fetch();
-            data=await Database
-            .table('vistaImagenesProducto')
-            .where({idProducto:id})
+            data = await Database
+                .table('vistaImagenesProducto')
+                .where({ idProducto: id })
         } catch (err) {
             codigoHttp = 500;
             codigo = -1;
@@ -74,11 +98,11 @@ class ImagenProductoController {
         let error = '';
         let respuesta = '';
         let data = null;
-
         const imagenProducto = new ImagenProducto();
         try {
             const usuario = await auth.getUser();
             const { idProducto, esImagenPrincipal, idEstado } = request.all();
+            console.log({ idProducto, esImagenPrincipal, idEstado });
             const id = idProducto;
             const producto = await Producto.find(id);
             const { idCatalogo, idCategoria } = producto;
@@ -108,7 +132,7 @@ class ImagenProductoController {
                 codigo = -1;
                 error = "No se logró cargar la imagen";
                 respuesta = 'Ocurrió un error al realizar la acción solicitada';
-                data = null;
+                data = BinarioImagen.error();;
             } else {
                 imagenProducto.fill({
                     idProducto,

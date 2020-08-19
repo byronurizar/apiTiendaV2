@@ -23,7 +23,7 @@ class CatTipoInfoAdicionalProductoController {
             respuesta,
             data
         });
-    } 
+    }
     async registrar({ auth, request, response }) {
         let codigoHttp = 200;
         let codigo = 0;
@@ -33,10 +33,10 @@ class CatTipoInfoAdicionalProductoController {
         try {
             const usuario = await auth.getUser();
             const { descripcion, idEstado } = request.all();
-            const catTipoInfoAdicional = new CatTipoInfoAdicional.create({
-                descripcion,
-                idEstado
-            });
+            const catTipoInfoAdicional = new CatTipoInfoAdicional();
+            catTipoInfoAdicional.descripcion = descripcion;
+            catTipoInfoAdicional.idEstado = idEstado;
+            await catTipoInfoAdicional.save();
             respuesta = 'Tipo de Información adicional registrado exitosamente'
             data = catTipoInfoAdicional;
         } catch (err) {

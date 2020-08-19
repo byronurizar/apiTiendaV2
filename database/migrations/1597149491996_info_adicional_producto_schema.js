@@ -9,7 +9,7 @@ class InfoAdicionalProductoSchema extends Schema {
       table.increments()
       table.integer('idProducto').unsigned().references('id').inTable('productos')
       table.integer('idTipoInfoAdicional').unsigned().references('id').inTable('cat_tipo_info_adicionals')
-      table.string('valor', 1000).notNullable()
+      table.string('valor', 3000).notNullable()
       table.integer('idEstado').unsigned().references('id').inTable('cat_estados')
       table.integer('user_id').unsigned().references('id').inTable('users')
       table.timestamps()
