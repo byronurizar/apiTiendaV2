@@ -4,6 +4,12 @@ const Persona = use('App/Models/Persona');
 const Database = use('Database');
 class UsuarioController {
     async login({ request, auth, response }) {
+        const ip=request.ip();
+        const ips = request.ips()
+        const url = request.originalUrl()
+        const url2 = request.url()
+
+        console.log({ip,ips,url,url2});
         let codigoHttp = 200;
         let codigo = 0;
         let dataSalida = {};
