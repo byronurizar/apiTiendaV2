@@ -3,7 +3,13 @@ const User = use('App/Models/User');
 const Persona = use('App/Models/Persona');
 const Database = use('Database');
 class UsuarioController {
-    async login({ request, auth, response }) {
+    async login({ request,response,auth }) {
+        const ip=request.ip();
+        const ips = request.ips()
+        const url = request.originalUrl()
+        const url2 = request.url()
+
+        console.log({ip,ips,url,url2});
         let codigoHttp = 200;
         let codigo = 0;
         let dataSalida = {};
@@ -17,7 +23,6 @@ class UsuarioController {
                 .table('users').where({ username: email });
 
             if (infoPersona[0]) {
-                console.log("Datos",infoPersona[0]);
                 if (infoPersona[0].activo == true) {
                     const token = await auth.attempt(email, password);
                     dataSalida.token = token;
